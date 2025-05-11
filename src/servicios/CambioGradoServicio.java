@@ -136,4 +136,20 @@ public class CambioGradoServicio {
 
         return estadisticas;
     }
+
+    public static String getCiudadMasCalurosaPorFecha(List<CambioGrado> datos, LocalDate fecha) {
+        return datos.stream()
+                .filter(d -> d.getFecha().isEqual(fecha))
+                .max(Comparator.comparing(CambioGrado::getCambio))
+                .map(CambioGrado::getCiudad)
+                .orElse("No disponible");
+    }
+    
+    public static String getCiudadMenosCalurosaPorFecha(List<CambioGrado> datos, LocalDate fecha) {
+        return datos.stream()
+                .filter(d -> d.getFecha().isEqual(fecha))
+                .min(Comparator.comparing(CambioGrado::getCambio))
+                .map(CambioGrado::getCiudad)
+                .orElse("No disponible");
+    }
 }
